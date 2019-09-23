@@ -66,13 +66,15 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
 fun ageDescription(age: Int): String {
     val s = age % 10
     val x = age % 100
-    return if (x in 10..20)  "$age лет" else
-    return when (s) {
-        1 -> "$age год"
-        in 2..4 -> "$age года"
-        in 5..9 -> "$age лет"
-        else -> "$age лет"
-    }
+    return if (x in 10..20)
+        "$age лет"
+    else
+        when (s) {
+            1 -> "$age год"
+            in 2..4 -> "$age года"
+            in 5..9 -> "$age лет"
+            else -> "$age лет"
+        }
 }
 
 /**
@@ -111,7 +113,7 @@ fun whichRookThreatens(
     rookX2: Int, rookY2: Int
 ): Int {
     return when {
-        (kingX == rookX1) || (kingY == rookY1) && (kingX == rookX2) || (kingY == rookY2) -> 3
+        ((kingX == rookX1) || (kingY == rookY1)) && ((kingX == rookX2) || (kingY == rookY2)) -> 3
         (kingX == rookX2) || (kingY == rookY2) -> 2
         (kingX == rookX1) || (kingY == rookY1) -> 1
         else -> 0
@@ -142,7 +144,17 @@ fun rookOrBishopThreatens(
  * прямоугольным (вернуть 1) или тупоугольным (вернуть 2).
  * Если такой треугольник не существует, вернуть -1.
  */
-fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
+fun triangleKind(a: Double, b: Double, c: Double): Int {
+    val x = maxOf(a, b, c)
+    val h = minOf(a, b, c)
+    val k = (a+b+c) - x - h
+    return when {
+        x > h + k -> -1
+        x * x < h * h + k * k -> 0
+        x * x == h * h + k * k -> 1
+        else -> 2
+    }
+}
 
 /**
  * Средняя
