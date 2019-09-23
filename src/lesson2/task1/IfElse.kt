@@ -88,15 +88,17 @@ fun timeForHalfWay(
     t1: Double, v1: Double,
     t2: Double, v2: Double,
     t3: Double, v3: Double
-): Double = TODO()
-// val s = (t1 * v1 + t2 * v2 + t3 * v3) / 2
-//    return when {
-//        s - t1 * v1 <= 0 -> s / v1
-//        s - t2 * v2 <= 0 -> t1 + (s - t1 * v1) / v2
-//        else -> t1 + t2 + (s - t1 * v1 + t2 *v2) / v3
-//    }
-//}
-
+): Double {
+    val s1 = t1 * v1
+    val s2 = t2 * v2
+    val s3 = t3 * v3
+    val s = (s1 + s2 + s3) / 2
+    return when {
+        s <= s1 -> s / v1
+        (s > s1) && (s <= s1 + s2) -> (s - s1) / v2 + t1
+        else -> ((s - s1 - s2) / v3) + t1 + t2
+    }
+}
 
 /**
  * Простая
@@ -114,12 +116,17 @@ fun whichRookThreatens(
 ): Int {
     return when {
         ((kingX == rookX1) || (kingY == rookY1)) && ((kingX == rookX2) || (kingY == rookY2)) -> 3
-        (kingX == rookX2) || (kingY == rookY2) -> 2
+        (kingX != rookX1) && (kingX != rookX2) && (kingY != rookY1) && (kingY != rookY2) -> 0
         (kingX == rookX1) || (kingY == rookY1) -> 1
-        else -> 0
+        (kingX == rookX2) || (kingY == rookY2) -> 2
+        else -> 3
     }
 }
 
+//((kingX == rookX1) || (kingY == rookY1)) && ((kingX == rookX2) || (kingY == rookY2)) -> 3
+//        (kingX == rookX2) || (kingY == rookY2) -> 2
+//        (kingX == rookX1) || (kingY == rookY1) -> 1
+//        else -> 0
 /**
  * Простая
  *
