@@ -21,15 +21,9 @@ fun pointInsideCircle(x: Double, y: Double, x0: Double, y0: Double, r: Double) =
  * Четырехзначное число назовем счастливым, если сумма первых двух ее цифр равна сумме двух последних.
  * Определить, счастливое ли заданное число, вернуть true, если это так.
  */
-fun isNumberHappy(number: Int): Boolean {
-    val a = number / 1000
-    val b = (number / 100) % 10
-    val c = (number / 10) % 10
-    val d = number % 10
-    val sum1 = a + b
-    val sum2 = c + d
-        return sum1 == sum2
-}
+fun isNumberHappy(number: Int): Boolean =
+    ((number / 1000) + ((number / 100) % 10)) == (((number / 10) % 10) + (number % 10))
+
 /**
  * Простая
  *
