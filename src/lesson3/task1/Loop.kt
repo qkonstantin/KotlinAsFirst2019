@@ -157,7 +157,15 @@ fun maxDivisor(n: Int): Int {
  * Взаимно простые числа не имеют общих делителей, кроме 1.
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
-fun isCoPrime(m: Int, n: Int): Boolean = TODO ()
+fun isCoPrime(m: Int, n: Int): Boolean {
+    var nodM = m
+    var nodN = n
+    while (nodM != nodN) {
+        if (nodM > nodN) nodM -= nodN
+        else nodN -= nodM
+    }
+    return nodM == 1
+}
 
 /**
  * Простая
@@ -166,7 +174,16 @@ fun isCoPrime(m: Int, n: Int): Boolean = TODO ()
  * то есть, существует ли такое целое k, что m <= k*k <= n.
  * Например, для интервала 21..28 21 <= 5*5 <= 28, а для интервала 51..61 квадрата не существует.
  */
-fun squareBetweenExists(m: Int, n: Int): Boolean = TODO()
+fun squareBetweenExists(m: Int, n: Int): Boolean {
+    var k1 = 0.0
+    var k2 = 0
+    for (i in m..n) {
+        k1 = sqrt(i.toDouble())
+        k2 = sqrt(i.toDouble()).toInt()
+        if (k1 == k2.toDouble()) return true
+    }
+    return false
+}
 
 /**
  * Средняя
@@ -184,7 +201,15 @@ fun squareBetweenExists(m: Int, n: Int): Boolean = TODO()
  * Написать функцию, которая находит, сколько шагов требуется для
  * этого для какого-либо начального X > 0.
  */
-fun collatzSteps(x: Int): Int = TODO()
+fun collatzSteps(x: Int): Int {
+    var num = x
+    var i = 0
+    while (num != 1) {
+        if (num % 2 == 0) num /= 2 else num = 3 * num + 1
+        i += 1
+    }
+    return i
+}
 
 /**
  * Средняя
@@ -215,7 +240,16 @@ fun cos(x: Double, eps: Double): Double = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun revert(n: Int): Int = TODO()
+fun revert(n: Int): Int {
+    var num = n
+    var rev = 0
+    while (num != 0) {
+        rev *= 10
+        rev += num % 10
+        num /= 10
+    }
+    return rev
+}
 
 /**
  * Средняя
@@ -226,7 +260,16 @@ fun revert(n: Int): Int = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun isPalindrome(n: Int): Boolean = TODO()
+fun isPalindrome(n: Int): Boolean {
+    var num = n
+    var rev = 0
+    while (num != 0) {
+        rev *= 10
+        rev += num % 10
+        num /= 10
+    }
+    return rev == n
+}
 
 /**
  * Средняя
@@ -236,7 +279,17 @@ fun isPalindrome(n: Int): Boolean = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun hasDifferentDigits(n: Int): Boolean = TODO()
+fun hasDifferentDigits(n: Int): Boolean {
+    var num = n
+    var k = 1
+    var digit = digitNumber(n)
+    if (n == 0) return false else
+    while (num != 0) {
+        if ((num % 10) == (num / 10 % 10)) k += 1
+        num /= 10
+    }
+    return digit != k
+}
 
 /**
  * Сложная
