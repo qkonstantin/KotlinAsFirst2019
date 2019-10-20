@@ -14,7 +14,7 @@ import kotlin.math.sqrt
 fun factorial(n: Int): Double {
     var result = 1.0
     for (i in 1..n) {
-        result = result * i // Please do not fix in master
+        result *= i // Please do not fix in master
     }
     return result
 }
@@ -282,8 +282,8 @@ fun isPalindrome(n: Int): Boolean {
 fun hasDifferentDigits(n: Int): Boolean {
     var num = n
     var k = 1
-    var digit = digitNumber(n)
-    if (n == 0) return false else
+    val digit = digitNumber(n)
+    if (n == 0) return false
     while (num != 0) {
         if ((num % 10) == (num / 10 % 10)) k += 1
         num /= 10
