@@ -255,7 +255,18 @@ fun convert(n: Int, base: Int): List<Int> {
  * Использовать функции стандартной библиотеки, напрямую и полностью решающие данную задачу
  * (например, n.toString(base) и подобные), запрещается.
  */
-fun convertToString(n: Int, base: Int): String = TODO()
+//abcdefghijklmnopqrstuvwxyz
+fun convertToString(n: Int, base: Int): String {
+    val num = convert(n, base)
+    val result = mutableListOf<String>()
+    val abc = listOf("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k",
+        "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z")
+    for (i in num.indices) {
+        if (num[i] < 10) result.add(num[i].toString())
+        else result.add(abc[num[i] - 10])
+    }
+    return result.joinToString(separator = "")
+}
 
 /**
  * Средняя
