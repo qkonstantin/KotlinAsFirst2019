@@ -4,6 +4,7 @@ package lesson4.task1
 
 import lesson1.task1.discriminant
 import lesson1.task1.sqr
+import kotlin.math.pow
 import kotlin.math.sqrt
 
 /**
@@ -150,12 +151,8 @@ fun center(list: MutableList<Double>): MutableList<Double> {
  * представленные в виде списков a и b. Скалярное произведение считать по формуле:
  * C = a1b1 + a2b2 + ... + aNbN. Произведение пустых векторов считать равным 0.
  */
-fun times(a: List<Int>, b: List<Int>): Int {
-    var ab = 0
-    for (i in a.indices) {
-        ab += a[i] * b[i]
-    }
-    return ab
+fun times(a: List<Int>, b: List<Int>): Int = a.foldIndexed(0) {
+        element, previousResult, _ -> previousResult + a[element] * b[element]
 }
 
 /**
@@ -166,16 +163,10 @@ fun times(a: List<Int>, b: List<Int>): Int {
  * Коэффициенты многочлена заданы списком p: (p0, p1, p2, p3, ..., pN).
  * Значение пустого многочлена равно 0 при любом x.
  */
-fun polynom(p: List<Int>, x: Int): Int {
-    var sum = 0
-    var a = 1
-    if (p.isEmpty()) return 0
-    for (i in p) {
-        sum += i * a
-        a *= x
+fun polynom(p: List<Int>, x: Int): Int =
+    p.foldIndexed(0) {
+            element, previousResult, _ -> previousResult + p[element] * x.toDouble().pow(element).toInt()
     }
-    return sum
-}
 
 /**
  * Средняя
@@ -255,15 +246,12 @@ fun convert(n: Int, base: Int): List<Int> {
  * Использовать функции стандартной библиотеки, напрямую и полностью решающие данную задачу
  * (например, n.toString(base) и подобные), запрещается.
  */
-//abcdefghijklmnopqrstuvwxyz
 fun convertToString(n: Int, base: Int): String {
     val num = convert(n, base)
     val result = mutableListOf<String>()
-    val abc = listOf("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k",
-        "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z")
     for (i in num.indices) {
         if (num[i] < 10) result.add(num[i].toString())
-        else result.add(abc[num[i] - 10])
+        else result.add(('a' + (num[i] - 10)).toString())
     }
     return result.joinToString(separator = "")
 }
@@ -275,8 +263,14 @@ fun convertToString(n: Int, base: Int): String {
  * из системы счисления с основанием base в десятичную.
  * Например: digits = (1, 3, 12), base = 14 -> 250
  */
-fun decimal(digits: List<Int>, base: Int): Int = TODO()
+fun decimal(digits: List<Int>, base: Int): Int = TODO ()
 
+/*
+{
+val x = digits.reversed()
+return x.foldIndexed(0) { element, previousResult, _ -> previousResult + digits[element] * base.toDouble().pow(element).toInt() }
+}
+*/
 /**
  * Сложная
  *
