@@ -151,9 +151,8 @@ fun center(list: MutableList<Double>): MutableList<Double> {
  * представленные в виде списков a и b. Скалярное произведение считать по формуле:
  * C = a1b1 + a2b2 + ... + aNbN. Произведение пустых векторов считать равным 0.
  */
-fun times(a: List<Int>, b: List<Int>): Int = a.foldIndexed(0) {
-        element, previousResult, _ -> previousResult + a[element] * b[element]
-}
+fun times(a: List<Int>, b: List<Int>): Int =
+    a.foldIndexed(0) { element, previousResult, _ -> previousResult + a[element] * b[element] }
 
 /**
  * Средняя
@@ -164,9 +163,7 @@ fun times(a: List<Int>, b: List<Int>): Int = a.foldIndexed(0) {
  * Значение пустого многочлена равно 0 при любом x.
  */
 fun polynom(p: List<Int>, x: Int): Int =
-    p.foldIndexed(0) {
-            element, previousResult, _ -> previousResult + p[element] * x.toDouble().pow(element).toInt()
-    }
+    p.foldIndexed(0) { element, prevResult, _ -> prevResult + p[element] * x.toDouble().pow(element).toInt() }
 
 /**
  * Средняя
@@ -263,7 +260,7 @@ fun convertToString(n: Int, base: Int): String {
  * из системы счисления с основанием base в десятичную.
  * Например: digits = (1, 3, 12), base = 14 -> 250
  */
-fun decimal(digits: List<Int>, base: Int): Int = TODO ()
+fun decimal(digits: List<Int>, base: Int): Int = TODO()
 
 /*
 {
