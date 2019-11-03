@@ -243,15 +243,8 @@ fun convert(n: Int, base: Int): List<Int> {
  * Использовать функции стандартной библиотеки, напрямую и полностью решающие данную задачу
  * (например, n.toString(base) и подобные), запрещается.
  */
-fun convertToString(n: Int, base: Int): String {
-    val num = convert(n, base)
-    val result = mutableListOf<String>()
-    for (i in num.indices) {
-        if (num[i] < 10) result.add(num[i].toString())
-        else result.add(('a' + (num[i] - 10)).toString())
-    }
-    return result.joinToString(separator = "")
-}
+fun convertToString(n: Int, base: Int): String =
+    convert(n, base).joinToString(separator = "") { if (it < 10) "$it" else "${'a' + (it - 10)}" }
 
 /**
  * Средняя
@@ -260,14 +253,9 @@ fun convertToString(n: Int, base: Int): String {
  * из системы счисления с основанием base в десятичную.
  * Например: digits = (1, 3, 12), base = 14 -> 250
  */
-fun decimal(digits: List<Int>, base: Int): Int = TODO()
+fun decimal(digits: List<Int>, base: Int): Int =
+    digits.fold(0) { PreviousResult, element -> element + PreviousResult * base }
 
-/*
-{
-val x = digits.reversed()
-return x.foldIndexed(0) { element, previousResult, _ -> previousResult + digits[element] * base.toDouble().pow(element).toInt() }
-}
-*/
 /**
  * Сложная
  *
@@ -280,7 +268,8 @@ return x.foldIndexed(0) { element, previousResult, _ -> previousResult + digits[
  * Использовать функции стандартной библиотеки, напрямую и полностью решающие данную задачу
  * (например, str.toInt(base)), запрещается.
  */
-fun decimalFromString(str: String, base: Int): Int = TODO()
+fun decimalFromString(str: String, base: Int): Int =
+    decimal(str.toList().map { if (it >= 'a') it - 'a' + 10 else it - '0' }, base)
 
 /**
  * Сложная
