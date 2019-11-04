@@ -112,9 +112,9 @@ fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> {
  */
 fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean {
     for ((key, value) in a) {
-        if (value == b[key]) return true
+        if (value != b[key]) return false
     }
-    return false
+    return true
 }
 
 /**
@@ -132,8 +132,8 @@ fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean {
  *     -> a changes to mutableMapOf() aka becomes empty
  */
 fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>): Unit {
-    for ((key) in b) {
-        if (containsIn(a, b)) a.remove(key)
+    for ((key, value) in b) {
+        if (a[key] == value) a.remove(key)
     }
 }
 
