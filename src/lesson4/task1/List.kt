@@ -201,7 +201,7 @@ fun factorize(n: Int): List<Int> {
         else x += 1
     }
     if (num > 1) result.add(num)
-    return result.sorted()
+    return result
 }
 
 /**
@@ -254,7 +254,7 @@ fun convertToString(n: Int, base: Int): String =
  * Например: digits = (1, 3, 12), base = 14 -> 250
  */
 fun decimal(digits: List<Int>, base: Int): Int =
-    digits.fold(0) { PreviousResult, element -> element + PreviousResult * base }
+    digits.fold(0) { previousResult, element -> element + previousResult * base }
 
 /**
  * Сложная
@@ -269,7 +269,7 @@ fun decimal(digits: List<Int>, base: Int): Int =
  * (например, str.toInt(base)), запрещается.
  */
 fun decimalFromString(str: String, base: Int): Int =
-    decimal(str.toList().map { if (it >= 'a') it - 'a' + 10 else it - '0' }, base)
+    decimal(str.map { if (it >= 'a') it - 'a' + 10 else it - '0' }, base)
 
 /**
  * Сложная
