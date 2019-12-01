@@ -142,7 +142,7 @@ fun dateDigitToStr(digital: String): String {
         val month = intToMonth(parts[1].toInt())
         val year = parts[2].toInt()
         when {
-            day > daysInMonth(parts[1].toInt(), year) || parts[1].toInt() !in 1..12 || year > 9999 -> ""
+            day > daysInMonth(parts[1].toInt(), year) || parts[1].toInt() !in 1..12 -> ""
             else -> "$day $month $year"
         }
     }
@@ -166,8 +166,9 @@ fun dateDigitToStr(digital: String): String {
  * PS: Дополнительные примеры работы функции можно посмотреть в соответствующих тестах.
  */
 fun flattenPhoneNumber(phone: String): String =
-    if (phone.contains(Regex("""\(+\)|[a-z]|_"""))) ""
-    else Regex("""[ \-()]""").replace(phone, (""))
+    if (phone.matches(Regex("""[+]?(\d+[\d -]*)?(\([\d]+[\d -]*\))?([\d -]*[\d]+)+""")))
+        Regex("""[\-() ]""").replace(phone, (""))
+    else ""
 
 /**
  * Средняя
