@@ -142,7 +142,7 @@ fun dateDigitToStr(digital: String): String {
         val month = intToMonth(parts[1].toInt())
         val year = parts[2].toInt()
         when {
-            day > daysInMonth(parts[1].toInt(), year) || parts[1].toInt() !in 1..12 || year < 1000 || year > 9999 -> ""
+            day > daysInMonth(parts[1].toInt(), year) || parts[1].toInt() !in 1..12 || year > 9999 -> ""
             else -> "$day $month $year"
         }
     }
@@ -212,7 +212,25 @@ fun bestHighJump(jumps: String): Int = TODO()
  * Вернуть значение выражения (6 для примера).
  * Про нарушении формата входной строки бросить исключение IllegalArgumentException
  */
-fun plusMinus(expression: String): Int = TODO()
+fun plusMinus(expression: String): Int {
+    val parts = expression.split(" ")
+    try {
+        if (expression.matches(Regex("""\d+( [+-] \d+)*"""))) {
+            var res = parts[0].toInt()
+            for (i in 2 until parts.size step 2) {
+                when {
+                    parts[i - 1] == "-" -> res -= parts[i].toInt()
+                    parts[i - 1] == "+" -> res += parts[i].toInt()
+                }
+            }
+            return res
+        }
+        else throw IllegalArgumentException()
+    }
+    catch (e: NumberFormatException) {
+        throw IllegalArgumentException()
+    }
+}
 
 /**
  * Сложная
@@ -223,7 +241,15 @@ fun plusMinus(expression: String): Int = TODO()
  * Вернуть индекс начала первого повторяющегося слова, или -1, если повторов нет.
  * Пример: "Он пошёл в в школу" => результат 9 (индекс первого 'в')
  */
-fun firstDuplicateIndex(str: String): Int = TODO()
+fun firstDuplicateIndex(str: String): Int {
+    val words = str.toLowerCase().split(" ")
+    var res = 0
+    for (i in 0 until words.size - 1) {
+        if (words[i] == words[i + 1]) return res
+        res += words[i].length + 1
+    }
+    return -1
+}
 
 /**
  * Сложная
