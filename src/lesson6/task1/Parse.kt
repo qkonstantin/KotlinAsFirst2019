@@ -136,12 +136,15 @@ fun intToMonth(month: Int): String {
 
 fun dateDigitToStr(digital: String): String {
     val parts = digital.split(".")
+    if (parts.size != 3) return ""
     return try {
         val day = parts[0].toInt()
         val month = intToMonth(parts[1].toInt())
         val year = parts[2].toInt()
-        if (day > daysInMonth(parts[1].toInt(), year) || (parts[1].toInt() !in 1..12) || (year < 1000 || year > 9999)) ""
-        else "$day $month $year"
+        when {
+            day > daysInMonth(parts[1].toInt(), year) || parts[1].toInt() !in 1..12 || year < 1000 || year > 9999 -> ""
+            else -> "$day $month $year"
+        }
     }
     catch (e: Exception) {
         ""
@@ -164,7 +167,8 @@ fun dateDigitToStr(digital: String): String {
  */
 fun flattenPhoneNumber(phone: String): String =
     if (phone.contains(Regex("""\(+\)|[a-z]|_"""))) ""
-    else Regex("""[\s-()]""").replace(phone, (""))
+    else Regex("""[ \-()]""").replace(phone, (""))
+
 /**
  * Средняя
  *
@@ -175,7 +179,16 @@ fun flattenPhoneNumber(phone: String): String =
  * Прочитать строку и вернуть максимальное присутствующее в ней число (717 в примере).
  * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
  */
-fun bestLongJump(jumps: String): Int = TODO()
+fun bestLongJump(jumps: String): Int {
+    val numbers = Regex("""-\s|%\s""").replace(jumps, "")
+    return try {
+        val map = numbers.split(" ").map { it.toInt() }
+        map.max()!!
+    }
+    catch (e: NumberFormatException) {
+        -1
+    }
+}
 
 /**
  * Сложная
