@@ -73,8 +73,8 @@ fun main() {
  * входными данными.
  */
 
-fun monthToInt(month: String): Int {
-    return when (month) {
+fun monthToInt(month: String): Int =
+    when (month) {
         "января" -> 1
         "февраля" -> 2
         "марта" -> 3
@@ -89,7 +89,6 @@ fun monthToInt(month: String): Int {
         "декабря" -> 12
         else -> 0
     }
-}
 
 fun dateStrToDigit(str: String): String {
     val parts = str.split(" ")
@@ -116,8 +115,8 @@ fun dateStrToDigit(str: String): String {
  * входными данными.
  */
 
-fun intToMonth(month: Int): String {
-    return when (month) {
+fun intToMonth(month: Int): String =
+    when (month) {
         1 -> "января"
         2 -> "февраля"
         3 -> "марта"
@@ -132,7 +131,6 @@ fun intToMonth(month: Int): String {
         12 -> "декабря"
         else -> ""
     }
-}
 
 fun dateDigitToStr(digital: String): String {
     val parts = digital.split(".")
