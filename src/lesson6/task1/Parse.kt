@@ -200,7 +200,15 @@ fun bestLongJump(jumps: String): Int {
  * При нарушении формата входной строки, а также в случае отсутствия удачных попыток,
  * вернуть -1.
  */
-fun bestHighJump(jumps: String): Int = TODO()
+fun bestHighJump(jumps: String): Int {
+    val jumpsSuccessful = Regex("""\d+ [\-+%]*\+[\-+%]*""").findAll(jumps)
+    val result = mutableListOf<Int>()
+    for (jump in jumpsSuccessful) {
+        result += jump.value.split(" ").first().toInt()
+    }
+    return if (result.sum() <= 0) -1 else
+        result.max()!!
+}
 
 /**
  * Сложная
