@@ -53,7 +53,14 @@ fun alignFile(inputName: String, lineLength: Int, outputName: String) {
  * Регистр букв игнорировать, то есть буквы е и Е считать одинаковыми.
  *
  */
-fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> = TODO()
+fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> {
+    val result = mutableMapOf<String, Int>()
+    val txt = File(inputName).readText().toLowerCase()
+    for (word in substrings) {
+        result[word] = txt.windowed(word.length) { if (it != word.toLowerCase()) 0 else 1 }.sum()
+    }
+    return result
+}
 
 
 /**
