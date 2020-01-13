@@ -84,14 +84,14 @@ fun sibilants(inputName: String, outputName: String) {
             val lineChar = line.toCharArray()
             var lineNew = lineChar[0].toString()
             for (i in 1 until lineChar.size) {
-                if (lineChar[i] in letters)
-                    when (lineChar[i + 1]) {
-                    'ы' -> lineChar[i + 1] = 'и'
-                    'ю' -> lineChar[i + 1] = 'у'
-                    'я' -> lineChar[i + 1] = 'а'
-                    'Ы' -> lineChar[i + 1] = 'И'
-                    'Ю' -> lineChar[i + 1] = 'У'
-                    'Я' -> lineChar[i + 1] = 'А'
+                if (lineChar[i - 1] in letters)
+                    when (lineChar[i]) {
+                    'ы' -> lineChar[i] = 'и'
+                    'ю' -> lineChar[i] = 'у'
+                    'я' -> lineChar[i] = 'а'
+                    'Ы' -> lineChar[i] = 'И'
+                    'Ю' -> lineChar[i] = 'У'
+                    'Я' -> lineChar[i] = 'А'
                 }
                 lineNew += lineChar[i]
             }
