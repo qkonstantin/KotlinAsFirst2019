@@ -82,8 +82,8 @@ fun sibilants(inputName: String, outputName: String) {
     File(outputName).bufferedWriter().use {
         for (line in txt) {
             val lineChar = line.toCharArray()
-            var lineNew = ""
-            for (i in lineChar.indices) {
+            var lineNew = lineChar[0].toString()
+            for (i in 1 until lineChar.size) {
                 if (lineChar[i] in letters)
                     when (lineChar[i + 1]) {
                     'ы' -> lineChar[i + 1] = 'и'
