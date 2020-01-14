@@ -119,7 +119,19 @@ fun sibilants(inputName: String, outputName: String) {
  *
  */
 fun centerFile(inputName: String, outputName: String) {
-    TODO()
+    val txt = File(inputName).readLines()
+    var maxLength = 0
+    File(outputName).bufferedWriter().use {
+        for (line in txt) {
+            val lineTrim = line.trim().length
+            if (lineTrim > maxLength)
+                maxLength = lineTrim
+        }
+        for (line in txt) {
+            it.write(" ".repeat((maxLength - line.trim().length) / 2) + line.trim())
+            it.newLine()
+        }
+    }
 }
 
 /**
