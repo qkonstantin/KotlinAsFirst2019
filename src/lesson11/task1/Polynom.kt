@@ -2,6 +2,8 @@
 
 package lesson11.task1
 
+import kotlin.math.pow
+
 /**
  * Класс "полином с вещественными коэффициентами".
  *
@@ -21,15 +23,18 @@ package lesson11.task1
  */
 class Polynom(vararg coeffs: Double) {
 
+    private fun isEmptyList(list: List<Double>) = if (list.isNotEmpty()) list else listOf(0.0)
+    private val coefficients = isEmptyList(coeffs.toList().dropWhile { it == 0.0 })
+
     /**
      * Геттер: вернуть значение коэффициента при x^i
      */
-    fun coeff(i: Int): Double = TODO()
+    fun coeff(i: Int): Double = coefficients[i]
 
     /**
      * Расчёт значения при заданном x
      */
-    fun getValue(x: Double): Double = TODO()
+    fun getValue(x: Double): Double = coefficients.fold(0.0) { prev, coeff -> prev * x + coeff }
 
     /**
      * Степень (максимальная степень x при ненулевом слагаемом, например 2 для x^2+x+1).
@@ -38,7 +43,7 @@ class Polynom(vararg coeffs: Double) {
      * Слагаемые с нулевыми коэффициентами игнорировать, т.е.
      * степень 0x^2+0x+2 также равна 0.
      */
-    fun degree(): Int = TODO()
+    fun degree(): Int = coefficients.size - 1
 
     /**
      * Сложение
@@ -48,7 +53,12 @@ class Polynom(vararg coeffs: Double) {
     /**
      * Смена знака (при всех слагаемых)
      */
-    operator fun unaryMinus(): Polynom = TODO()
+    operator fun unaryMinus(): Polynom {
+        val res = mutableListOf<Double>()
+        for (i in coefficients.indices)
+            res += -coefficients[i]
+        return Polynom(*res.toDoubleArray())
+    }
 
     /**
      * Вычитание
@@ -83,5 +93,5 @@ class Polynom(vararg coeffs: Double) {
     /**
      * Получение хеш-кода
      */
-    override fun hashCode(): Int = TODO()
+    override fun hashCode(): Int = coefficients.hashCode()
 }
