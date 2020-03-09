@@ -2,6 +2,8 @@
 
 package lesson11.task1
 
+import kotlin.math.abs
+import kotlin.math.max
 import kotlin.math.pow
 
 /**
@@ -48,7 +50,21 @@ class Polynom(vararg coeffs: Double) {
     /**
      * Сложение
      */
-    operator fun plus(other: Polynom): Polynom = TODO()
+    operator fun plus(other: Polynom): Polynom {
+        var first = this.coefficients
+        var second = other.coefficients
+        val difference = abs(first.size - second.size)
+        val result = mutableListOf<Double>()
+        if (first.size != max(first.size, second.size)) {
+            first = other.coefficients
+            second = this.coefficients
+        }
+        for (i in first.indices) {
+            if (i >= difference) result.add(first[i] + second[i - difference])
+            else result.add(first[i])
+        }
+        return Polynom(*result.toDoubleArray())
+    }
 
     /**
      * Смена знака (при всех слагаемых)
@@ -63,12 +79,22 @@ class Polynom(vararg coeffs: Double) {
     /**
      * Вычитание
      */
-    operator fun minus(other: Polynom): Polynom = TODO()
+    operator fun minus(other: Polynom): Polynom = plus(-other)
 
     /**
      * Умножение
      */
-    operator fun times(other: Polynom): Polynom = TODO()
+    operator fun times(other: Polynom): Polynom {
+        val map = mutableMapOf<Int, Double>()
+        val list = mutableListOf<Double>()
+        for (i in coefficients.indices) {
+            for (j in other.coefficients.indices)
+                map[i + j] = map.getOrDefault(i + j, 0.0) + coefficients[i] * other.coefficients[j]
+        }
+            for (i in map.toList().indices)
+                list.add(map.getOrDefault(i, 0.0))
+        return Polynom(*list.toDoubleArray())
+    }
 
     /**
      * Деление
@@ -88,7 +114,7 @@ class Polynom(vararg coeffs: Double) {
     /**
      * Сравнение на равенство
      */
-    override fun equals(other: Any?): Boolean = TODO()
+    override fun equals(other: Any?): Boolean = other is Polynom && coefficients == other.coefficients
 
     /**
      * Получение хеш-кода
